@@ -1,40 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import CreditCardResults from "./CreditCardResults";
-import "./CreditCardForm.css";
 
-export default function CreditCardForm() {
-  // const [cards, setCards] = useState([
-  //   { type: "Bank", name: "Capital One", APR: "5%", MonthlyRepayment: "£10" },
-  // ]);
+export default function CreditCardRegister(props) {
   const [cardType, setCardType] = useState("");
   const [cardName, setCardName] = useState("");
   const [cardBalance, setCardBalance] = useState("");
   const [cardAPR, setCardAPR] = useState("");
   const [cardMonthlyRepayment, setCardMonthlyRepayment] = useState("");
-
-  // console.log(cards);
-
-  // useEffect(() => {
-  //   console.log("Updating cards");
-  //   updateCards();
-  // }, [cards]);
-
-  // function updateCards() {
-  //   setCards((prevState) => {
-  //     return [
-  //       ...prevState,
-  //       {
-  //         type: cardType,
-  //         name: cardName,
-  //         apr: cardAPR,
-  //         monthlyRepayment: cardMonthlyRepayment,
-  //       },
-  //     ];
-  //   });
-  //   console.log(cards);
-  // }
 
   const handleCardTypeChange = (e) => {
     setCardType(e.target.value);
@@ -56,14 +29,20 @@ export default function CreditCardForm() {
     setCardMonthlyRepayment(e.target.value);
   };
 
-  function handleSubmit() {
-    return <CreditCardResults />;
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.updateCards(
+      cardType,
+      cardName,
+      cardBalance,
+      cardAPR,
+      cardMonthlyRepayment
+    );
+    props.toggleToast();
+    resetState();
   }
 
-  // Needs to be called after form values submitted
-  // Maybe pass into a useEffect hook
   function resetState() {
-    // clear values
     setCardType("");
     setCardName("");
     setCardBalance("");
@@ -71,25 +50,11 @@ export default function CreditCardForm() {
     setCardMonthlyRepayment("");
   }
 
-  // function getAllCards() {
-  //   const cardsList = cards.map((item) => {
-  //     return (
-  //       <CreditCardResults
-  //         type={item.type}
-  //         name={item.name}
-  //         apr={item.APR}
-  //         monthlyRepayment={item.MonthlyRepayment}
-  //       />
-  //     );
-  //   });
-  //   return cardsList;
-  // }
-
   function getForm() {
     return (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group id="test" className="mb-3">
-          <Form.Label>What is the card type?</Form.Label>
+          <Form.Label>What is the Credit Card type?</Form.Label>
           <Form.Control
             type="text"
             value={cardType}
@@ -97,10 +62,10 @@ export default function CreditCardForm() {
             required
             onChange={handleCardTypeChange}
           />
+          <Form.Text>&nbsp;</Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3">
-          <Form.Label>Give this card a nickname</Form.Label>
+          <Form.Label>Give this Card a Nickname 😀</Form.Label>
           <Form.Control
             type="text"
             value={cardName}
@@ -108,12 +73,10 @@ export default function CreditCardForm() {
             required
             onChange={handleCardNameChange}
           />
+          <Form.Text>&nbsp;</Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3">
-          <Form.Label>
-            What is the outstanding balance on this card??
-          </Form.Label>
+          <Form.Label>What is the Outstanding Balance on this Card?</Form.Label>
           <Form.Control
             type="text"
             value={cardBalance}
@@ -121,8 +84,8 @@ export default function CreditCardForm() {
             required
             onChange={handleCardBalanceChange}
           />
+          <Form.Text>&nbsp;</Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>What is the APR on this card?</Form.Label>
           <Form.Control
@@ -132,10 +95,10 @@ export default function CreditCardForm() {
             required
             onChange={handleCardAPRChange}
           />
+          <Form.Text>&nbsp;</Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3">
-          <Form.Label>What is monthly repayment on this card?</Form.Label>
+          <Form.Label>What is Monthly Repayment on this card?</Form.Label>
           <Form.Control
             type="text"
             value={cardMonthlyRepayment}
@@ -144,20 +107,15 @@ export default function CreditCardForm() {
             onChange={handleCardMonthlyRepaymentChange}
           />
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Submit Card Data
         </Button>
-        <Button variant="primary" type="reset">
+        &nbsp; &nbsp;
+        <Button onClick={resetState} variant="outline-primary" type="reset">
           Reset Form
         </Button>
       </Form>
     );
   }
-  return (
-    <div>
-      {getForm()}
-      {/* {getAllCards()} */}
-    </div>
-  );
+  return <div className="form">{getForm()}</div>;
 }
