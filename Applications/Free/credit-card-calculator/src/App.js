@@ -5,6 +5,7 @@ import CreditCardForm from "./Components/CreditCardForm";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import CreditCardFormTest from "./Components/CreditCardFormTest";
 
 function App() {
   document.title = "Money Means Credit Calculator!";
@@ -51,6 +52,7 @@ function App() {
           </main>
           <div>
             <CreditCardForm />
+            <CreditCardFormTest />
           </div>
         </div>
       </div>

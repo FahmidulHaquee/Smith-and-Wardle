@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+
 export default function CreditCardRegister(props) {
   const [cardType, setCardType] = useState("");
   const [cardName, setCardName] = useState("");
@@ -52,6 +53,7 @@ export default function CreditCardRegister(props) {
 
   function getForm() {
     return (
+      <Accordion></Accordion>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group id="test" className="mb-3">
           <Form.Label>What is the Credit Card type?</Form.Label>
